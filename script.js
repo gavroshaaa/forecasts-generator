@@ -1,15 +1,42 @@
-/* Генерация предсказания должна происходить при клике на кнопку «предсказать судьбу» */
+const currentForecastText = document.querySelector('.current-forecast h1');
+const currentForecastPercent = document.querySelector('.current-forecast p');
+let predictionText = "";
 
-/* Заранее заготовь 3-5 предсказаний и в зависимости от того, как лягут карты судьбы (или что скажет Math.random) показывай их пользователю */
+function generateRandom(min, max) {
+    return Math.round((Math.random() * (max - min)) + min);
+};
 
-/* Подставляй текст нового предсказания в .current-forecast h1 */
+const allForecasts = document.querySelector('.forecasts');
+const wrapperForPrediction = document.querySelector('#forecast-item');
 
-/* Показывай процент вероятности, с которым предсказание сбудется — в верстке это .current-forecast p */
+function savePrediction(text, percent) {
+    const prediction = wrapperForPrediction.content.cloneNode(true);
+    prediction.querySelector('h3').textContent = text;
+    prediction.querySelector('p').textContent = percent;
 
-/* Данный процент также нужно генерировать автоматически, он может принимать значения от 0 до 100% */
+    return prediction;
+};
 
-/* Совет: заведи функцию-хелпер, которая будет заниматься только генерацией данных в диапазоне от min до max и используй ее где нужно */
+const button = document.querySelector('.forecast-btn');
+button.addEventListener('click', function() {
+    const predictionNumber = generateRandom(0, 6);
+    const forecastPercent = generateRandom(0, 101);
 
-/* При генерации нового предсказания старое предсказание должно добавляться в начало списка «Мои предсказания» — .forecasts  */
+    if (predictionNumber == 1) {
+        predictionText = "Все будет супер!";
+    } else if (predictionNumber == 2) {
+        predictionText = "Все будет еще лучше!";
+    } else if (predictionNumber == 3) {
+        predictionText = "Не сдавайся, ты скоро будешь у цели!";
+    } else if (predictionNumber == 4) {
+        predictionText = "У тебя все получится!";
+    } else {
+        predictionText = "Ты на верном пути!";
+    };
 
-/* Для добавления предсказания в список воспользуйся шаблоном forecast-item */
+    currentForecastText.textContent = predictionText;
+    currentForecastPercent.textContent = `Вероятность: ${forecastPercent}%`;
+
+    const oldPrediction = savePrediction(predictionText, `Вероятность: ${forecastPercent}%`);
+    allForecasts.prepend(oldPrediction);
+});
