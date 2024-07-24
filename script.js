@@ -1,5 +1,5 @@
-let currentForecastText = document.querySelector('.current-forecast h1');
-let currentForecastPercent = document.querySelector('.current-forecast p');
+const currentForecastText = document.querySelector('.current-forecast h1');
+const currentForecastPercent = document.querySelector('.current-forecast p');
 let predictionText = "";
 
 function generateRandom(min, max) {
@@ -19,8 +19,8 @@ function savePrediction(text, percent) {
 
 const button = document.querySelector('.forecast-btn');
 button.addEventListener('click', function() {
-    let predictionNumber = generateRandom(0, 6);
-    let forecastPercent = generateRandom(0, 100);
+    const predictionNumber = generateRandom(0, 6);
+    const forecastPercent = generateRandom(0, 101);
 
     if (predictionNumber == 1) {
         predictionText = "Все будет супер!";
